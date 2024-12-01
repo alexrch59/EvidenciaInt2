@@ -139,25 +139,28 @@ else()
     endif()
 endif()
 
-add_subdirectory(configured)
-add_subdirectory(external)
+# Incluir el directorio 'src' donde está tu código
 add_subdirectory(src)
-add_subdirectory(app)
+
+# Agregar el ejecutable main.cpp
+add_executable(${EXECUTABLE_NAME} main.cpp)
+
+# Enlace de bibliotecas si es necesario
+# target_link_libraries(${EXECUTABLE_NAME} PRIVATE nlohmann_json fmt spdlog)
+
+# Agregar subdirectorios si es necesario
+# add_subdirectory(app)
+
+# Para pruebas, si no necesitas pruebas, omite esta parte
 if(ENABLE_TESTING)
     include(CTest)
     enable_testing()
-    add_subdirectory(tests)
+    # add_subdirectory(tests)
 endif()
 
-# INSTALL TARGETS
-
-install(
-    TARGETS ${EXECUTABLE_NAME}
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin)
-
-install(
-    TARGETS "LibFoo" "LibBar"
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib)
+# Instalación (opcional)
+# install(
+#     TARGETS ${EXECUTABLE_NAME}
+#     ARCHIVE DESTINATION lib
+#     LIBRARY DESTINATION lib
+#     RUNTIME DESTINATION bin)
